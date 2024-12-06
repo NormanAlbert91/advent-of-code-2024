@@ -1,7 +1,4 @@
 import {FC, useState} from "react";
-import {browser} from "globals";
-import {Simulate} from "react-dom/test-utils";
-import copy = Simulate.copy;
 
 const Advent2: FC = () => {
     const [puzzleinput, setPuzzleinput] = useState('');
