@@ -46,7 +46,6 @@ const Advent1: FC = () => {
         <h4>Part 2</h4>
         Result: {resultPartTwo}
         <hr/>
-        <hr/>
     </>
 }
 

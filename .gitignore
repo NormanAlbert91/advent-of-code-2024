@@ -1,24 +1,24 @@
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+typescript/logs
+typescript/*.log
+typescript/npm-debug.log*
+typescript/yarn-debug.log*
+typescript/yarn-error.log*
+typescript/pnpm-debug.log*
+typescript/lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+typescript/node_modules
+typescript/dist
+typescript/dist-ssr
+typescript/*.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+typescript/# Editor directories and files
+typescript/.vscode/*
+typescript/!.vscode/extensions.json
+typescript/.idea
+typescript/.DS_Store
+typescript/*.suo
+typescript/*.ntvs*
+typescript/*.njsproj
+typescript/*.sln
+typescript/*.sw?
