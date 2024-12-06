@@ -5,9 +5,18 @@ import Advent1 from "./Advent-1.tsx";
 import Advent2 from "./Advent-2.tsx";
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-      <h1>Advent of code 2024</h1>
-      <Advent1/>
-      <Advent2/>
-  </StrictMode>,
+    <StrictMode>
+        <h1>Advent of code 2024</h1>
+
+        <details>
+            <summary>Day 1</summary>
+            <Advent1/>
+        </details>
+
+        <details>
+            <summary>Day 2</summary>
+            <Advent2/>
+        </details>
+
+    </StrictMode>,
 )

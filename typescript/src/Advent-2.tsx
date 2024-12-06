@@ -17,7 +17,10 @@ const Advent2: FC = () => {
             Math.abs(Number(value) - Number(array[index - 1])) <= 3);
     }
 
-    function rowIsSave(row: Array): boolean {
+    function rowIsSave(row: Array<string>): boolean {
+        if (row.length < 1) {
+            return false;
+        }
         let save = true;
         row.forEach((value, index) => {
 
@@ -48,14 +51,12 @@ const Advent2: FC = () => {
 
     console.log(resultPartOne)
 
-
-
-
-
-
     let resultPartTwo = 0;
     split.forEach((line, index) => {
         const row = line.split(' ');
+        if (row.length < 1) {
+            return false;
+        }
         if(rowIsSave(row)) {
             resultPartTwo++;
         } else {
@@ -76,7 +77,6 @@ const Advent2: FC = () => {
 
 
     return <>
-        <h2>Day 2</h2>
         <textarea rows={10} cols={25} value={puzzleinput} onChange={e => setPuzzleinput(e.target.value)}> </textarea>
         <h4>Part 1</h4>
         Result: {resultPartOne}
