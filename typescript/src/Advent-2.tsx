@@ -17,10 +17,7 @@ const Advent2: FC = () => {
             Math.abs(Number(value) - Number(array[index - 1])) <= 3);
     }
 
-
-    let resultPartOne = 0;
-    split.forEach((line) => {
-        const row = line.split(' ');
+    function rowIsSave(row: Array): boolean {
         let save = true;
         row.forEach((value, index) => {
 
@@ -36,7 +33,15 @@ const Advent2: FC = () => {
                 save = false;
             }
         });
-        if(save) {
+
+        return save;
+    }
+
+
+    let resultPartOne = 0;
+    split.forEach((line) => {
+        const row = line.split(' ');
+        if(rowIsSave(row)) {
             resultPartOne++;
         }
     });
@@ -46,7 +51,28 @@ const Advent2: FC = () => {
 
 
 
-    let resultPartTwo: number = 0;
+
+
+    let resultPartTwo = 0;
+    split.forEach((line, index) => {
+        const row = line.split(' ');
+        if(rowIsSave(row)) {
+            resultPartTwo++;
+        } else {
+            console.log(index)
+            row.some((_value, index) => {
+                const rowCopy = [...row];
+                rowCopy.splice(index, 1)
+                console.log(rowCopy)
+                if(rowIsSave(rowCopy)) {
+                    console.log('is save: ', rowCopy)
+                    resultPartTwo++;
+
+                    return true;
+                }
+            });
+        }
+    });
 
 
     return <>
