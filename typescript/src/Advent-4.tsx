@@ -24,48 +24,20 @@ const Advent3: FC = () => {
     //     ['S', 0 , 0 ,'S', 0 , 0 ,'S'],
     // ]
 
-    function inkrement(zahl: number) {
-        if (zahl > 0) {
-            return zahl + 1; // z.B. 4 -> 5
-        } else if (zahl < 0) {
-            return zahl - 1; // z.B. -4 -> -5
-        } else {
-            return 0;
+    function checkLetter(array: string[][], possitionXx = 0, possitionXy = 0,  letter: string, y: number = 0, x: number = 0): boolean {
+        if (possitionXx + x < 0) {
+            return false;
         }
-    }
-
-
-
-    function checkLetter(array: string[][], possitionXx = 0, possitionXy = 0, y: number = 0, x: number = 0): boolean {
-
-
-        const expectedLetter: string[] = ['M', 'A', 'S']
-
-        let found = false;
-        for (let i = 0; i < expectedLetter.length; i++) {
-
-            if (possitionXx + x < 0) {
-                return false;
-            }
-            if (possitionXy + y < 0) {
-                return false;
-            }
-            if (possitionXx + x > array[0].length-1) {
-                return false;
-            }
-            if (possitionXy + y > array.length-1) {
-                return false;
-            }
-            if (array[possitionXy+y][possitionXx+x] === expectedLetter[i]) {
-                found = true
-            } else {
-                return false;
-            }
-            y = inkrement(y);
-            x = inkrement(x);
+        if (possitionXy + y < 0) {
+            return false;
         }
-
-        return found;
+        if (possitionXx + x > array[0].length-1) {
+            return false;
+        }
+        if (possitionXy + y > array.length-1) {
+            return false;
+        }
+        return array[possitionXy+y][possitionXx+x] === letter;
     }
 
     let found = 0;
@@ -73,37 +45,69 @@ const Advent3: FC = () => {
         for (let x = 0; x < array[0].length; x++) {
             if (array[y][x] === 'X') {
                 //hoch-gerade
-                if (checkLetter(array, x, y, 0, 1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', 0, 1)) {
+                    if (checkLetter(array, x, y, 'A', 0, 2)) {
+                        if (checkLetter(array, x, y, 'S', 0, 3)) {
+                            found++;
+                        }
+                    }
                 }
                 //runter gerade
-                if (checkLetter(array, x, y, 0, -1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', 0, -1)) {
+                    if (checkLetter(array, x, y, 'A', 0, -2)) {
+                        if (checkLetter(array, x, y, 'S', 0, -3)) {
+                            found++;
+                        }
+                    }
                 }
                 //rechts gerade
-                if (checkLetter(array, x, y, 1, 0)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', 1, 0)) {
+                    if (checkLetter(array, x, y, 'A', 2, 0)) {
+                        if (checkLetter(array, x, y, 'S', 3, 0)) {
+                            found++;
+                        }
+                    }
                 }
-                //links gerade
-                if (checkLetter(array, x, y, -1, 0)) {
-                    found++;
+                //linksgerade
+                if (checkLetter(array, x, y, 'M', -1, 0)) {
+                    if (checkLetter(array, x, y, 'A', -2, 0)) {
+                        if (checkLetter(array, x, y, 'S', -3, 0)) {
+                            found++;
+                        }
+                    }
                 }
                 //rechts diagonal hoch
-                if (checkLetter(array, x, y, 1, 1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', 1, 1)) {
+                    if (checkLetter(array, x, y, 'A', 2, 2)) {
+                        if (checkLetter(array, x, y, 'S', 3, 3)) {
+                            found++;
+                        }
+                    }
                 }
                 //links diagonal runter
-                if (checkLetter(array, x, y, -1, -1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', -1, -1)) {
+                    if (checkLetter(array, x, y, 'A', -2, -2)) {
+                        if (checkLetter(array, x, y, 'S', -3, -3)) {
+                            found++;
+                        }
+                    }
                 }
                 //rechts diagonal runter
-                if (checkLetter(array, x, y, 1, -1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', 1, -1)) {
+                    if (checkLetter(array, x, y, 'A', 2, -2)) {
+                        if (checkLetter(array, x, y, 'S', 3, -3)) {
+                            found++;
+                        }
+                    }
                 }
 
                 //links diagonal hoch
-                if (checkLetter(array, x, y, -1, 1)) {
-                    found++;
+                if (checkLetter(array, x, y, 'M', -1, 1)) {
+                    if (checkLetter(array, x, y, 'A', -2, 2)) {
+                        if (checkLetter(array, x, y, 'S', -3, 3)) {
+                            found++;
+                        }
+                    }
                 }
             }
         }
