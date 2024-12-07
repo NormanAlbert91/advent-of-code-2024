@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 
-const Advent3: FC = () => {
+const Advent4: FC = () => {
     const [puzzleinput, setPuzzleinput] = useState('');
 
     const split = puzzleinput?.toString().split('\n');
@@ -13,7 +13,6 @@ const Advent3: FC = () => {
     })
 
 
-
     // const helper = [
     //     ['S', 0 , 0 ,'S', 0 , 0 ,'S'],
     //     [ 0 ,'A', 0 ,'A', 0 ,'A', 0 ],
@@ -24,7 +23,7 @@ const Advent3: FC = () => {
     //     ['S', 0 , 0 ,'S', 0 , 0 ,'S'],
     // ]
 
-    function inkrement(zahl: number) {
+    function inkrement(zahl: number): number {
         if (zahl > 0) {
             return zahl + 1; // z.B. 4 -> 5
         } else if (zahl < 0) {
@@ -34,41 +33,55 @@ const Advent3: FC = () => {
         }
     }
 
+    function isOutOfBounce(array: string[][], possitionXx = 0, possitionXy = 0, yBounce: number = 0, xBounce: number = 0): boolean {
+
+        if (possitionXx + xBounce < 0) {
+            return true;
+        }
+        if (possitionXy + yBounce < 0) {
+            return true;
+        }
+        if (possitionXx + xBounce > array[0].length - 1) {
+            return true;
+        }
+        if (possitionXy + yBounce > array.length - 1) {
+            return true;
+        }
+
+        return false;
+
+    }
 
 
-    function checkLetter(array: string[][], possitionXx = 0, possitionXy = 0, y: number = 0, x: number = 0): boolean {
+    function checkLetter(array: string[][], possitionXx = 0, possitionXy = 0, yLetterCheck: number = 0, xLetterCheck: number = 0): boolean {
 
 
         const expectedLetter: string[] = ['M', 'A', 'S']
+        let checky = yLetterCheck.valueOf();
+        let checkx = xLetterCheck.valueOf();
 
         let found = false;
         for (let i = 0; i < expectedLetter.length; i++) {
 
-            if (possitionXx + x < 0) {
+            if (isOutOfBounce(array, possitionXx, possitionXy, checky, checkx)) {
                 return false;
             }
-            if (possitionXy + y < 0) {
-                return false;
-            }
-            if (possitionXx + x > array[0].length-1) {
-                return false;
-            }
-            if (possitionXy + y > array.length-1) {
-                return false;
-            }
-            if (array[possitionXy+y][possitionXx+x] === expectedLetter[i]) {
+
+            if (array[possitionXy + checky][possitionXx + checkx] === expectedLetter[i]) {
                 found = true
             } else {
                 return false;
             }
-            y = inkrement(y);
-            x = inkrement(x);
+            checky = inkrement(checky);
+            checkx = inkrement(checkx);
         }
 
         return found;
     }
 
     let found = 0;
+
+    let foundPart2 = 0
     for (let y = 0; y < array.length; y++) {
         for (let x = 0; x < array[0].length; x++) {
             if (array[y][x] === 'X') {
@@ -106,17 +119,78 @@ const Advent3: FC = () => {
                     found++;
                 }
             }
+
+
+            if(array[y][x] === 'A') {
+                //links->rechts
+                if (checkLetter2(array,'M', x, y, -1, -1)) {
+                    if (checkLetter2(array,'M', x, y, -1, 1)) {
+                        if (checkLetter2(array,'S', x, y, 1, 1)) {
+                            if (checkLetter2(array,'S', x, y, 1, -1)) {
+                                foundPart2++
+                            }
+                        }
+                    }
+                }
+
+                //rechts->links
+                if (checkLetter2(array,'S', x, y, -1, -1)) {
+                    if (checkLetter2(array,'S', x, y, -1, 1)) {
+                        if (checkLetter2(array,'M', x, y, 1, 1)) {
+                            if (checkLetter2(array,'M', x, y, 1, -1)) {
+                                foundPart2++
+                            }
+                        }
+                    }
+                }
+
+                //hoch->runter
+                if (checkLetter2(array,'M', x, y, -1, -1)) {
+                    if (checkLetter2(array,'S', x, y, -1, 1)) {
+                        if (checkLetter2(array,'S', x, y, 1, 1)) {
+                            if (checkLetter2(array,'M', x, y, 1, -1)) {
+                                foundPart2++
+                            }
+                        }
+                    }
+                }
+
+                //runter->hoch
+                if (checkLetter2(array,'S', x, y, -1, -1)) {
+                    if (checkLetter2(array,'M', x, y, -1, 1)) {
+                        if (checkLetter2(array,'M', x, y, 1, 1)) {
+                            if (checkLetter2(array,'S', x, y, 1, -1)) {
+                                foundPart2++
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 
-    return <>
-        <textarea rows={10} cols={25} value={puzzleinput} onChange={e => setPuzzleinput(e.target.value)}> </textarea>
-        <h4>Part 1</h4>
-        Result: {found}
-        <h4>Part 2</h4>
-        Result: xx
-        <hr/>
-    </>
-}
 
-export default Advent3
+        function checkLetter2(array: string[][], letter: string, possitionXx = 0, possitionXy = 0, xLetterCheck2: number = 0, yLetterCheck2: number = 0): boolean {
+            if (isOutOfBounce(array, possitionXx, possitionXy, yLetterCheck2, xLetterCheck2)) {
+                return false;
+            }
+            return array[possitionXy+yLetterCheck2][possitionXx+xLetterCheck2] === letter;
+        }
+
+
+
+
+        return <>
+            <textarea rows={10} cols={25} value={puzzleinput}
+                      onChange={e => setPuzzleinput(e.target.value)}> </textarea>
+            <h4>Part 1</h4>
+            Result: {found}
+            <h4>Part 2</h4>
+            Result: {foundPart2}
+            <hr/>
+        </>
+    }
+
+
+export default Advent4
