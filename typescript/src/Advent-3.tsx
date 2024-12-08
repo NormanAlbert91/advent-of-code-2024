@@ -7,14 +7,15 @@ const Advent3: FC = () => {
     if (puzzleinput !== '') {
         const split = puzzleinput?.toString().match(/mul\(\d+,\d+\)/g)
 
+        if (split) {
+            split.forEach((value) => {
+                value = value.replace('mul(', '')
+                value = value.replace(')', '')
 
-        split.forEach((value) => {
-            value = value.replace('mul(', '')
-            value = value.replace(')', '')
-
-            const numbers = value.split(',')
-            resultPartOne += Number(numbers[0]) * Number(numbers[1])
-        });
+                const numbers = value.split(',')
+                resultPartOne += Number(numbers[0]) * Number(numbers[1])
+            });
+        }
 
     }
 

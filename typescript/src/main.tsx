@@ -6,6 +6,7 @@ import Advent2 from "./Advent-2.tsx";
 import Advent3 from "./Advent-3.tsx";
 import Advent4 from "./Advent-4.tsx";
 import Advent5 from "./Advent-5.tsx";
+import Advent6 from "./Advent-6.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -34,6 +35,11 @@ createRoot(document.getElementById('root')!).render(
         <details>
             <summary>Day 5</summary>
             <Advent5/>
+        </details>
+
+        <details>
+            <summary>Day 6</summary>
+            <Advent6/>
         </details>
     </StrictMode>,
 )
