@@ -10,7 +10,6 @@ const Advent6: FC = () => {
        array.forEach((value) => {
            map.push(value.split(''))
        })
-        console.log(1)
 
         let position: number[] = [0,0]
         for (let y = 0; y < map.length -1; y++) {
@@ -20,7 +19,6 @@ const Advent6: FC = () => {
                 }
             }
         }
-        console.log(2)
 
         let steps = 0;
         while (position[0] < map.length -1 && position[1] < map[0].length -1 && steps < 100 && position[0] >= 0 && position[1] >= 0) {
@@ -30,11 +28,9 @@ const Advent6: FC = () => {
             } else {
                 position = [ position[0], position[1]+1]
             }
-            console.log(position)
             steps += 1;
         }
 
-        console.log(steps)
     }
 
         return <>
