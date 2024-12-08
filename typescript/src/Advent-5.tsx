@@ -2,6 +2,7 @@ import {FC, useState} from "react";
 
 const Advent5: FC = () => {
     const [puzzleinput, setPuzzleinput] = useState('');
+    let result = 0;
 
     if (puzzleinput !== '') {
         const split = puzzleinput?.toString().split('\n\n');
@@ -19,12 +20,32 @@ const Advent5: FC = () => {
             array2Numbers.push(value.split(','))
         })
 
-        array1Numbers.forEach((value) => {
+        const found: string[][] = []
+        array2Numbers.forEach((value1) => {
+            let founds = 0
+            for (let i = 0; i < value1.length; i++) {
+                if (i+1 == value1.length) {
+                    return;
+                }
+                const searchArray: string[] = [value1[i], value1[i+1]]
 
+                array1Numbers.forEach((value2) => {
+                    if (JSON.stringify(value2) == JSON.stringify(searchArray)) {
+                        founds ++;
+                        return;
+                    }
+                })
+                if (founds === value1.length - 1) {
+                    found.push(value1)
+                }
+            }
         })
 
-        console.log(array1Numbers)
-        console.log(array2Numbers)
+        found.forEach((value) => {
+            const middle = (value.length - 1) / 2
+
+            result += Number(value[middle])
+        })
 
     }
 
@@ -32,7 +53,7 @@ const Advent5: FC = () => {
             <textarea rows={10} cols={25} value={puzzleinput}
                       onChange={e => setPuzzleinput(e.target.value)}> </textarea>
             <h4>Part 1</h4>
-            Result: {0}
+            Result: {result}
             <h4>Part 2</h4>
             Result: {0}
             <hr/>
