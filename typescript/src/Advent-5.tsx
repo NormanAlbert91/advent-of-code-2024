@@ -21,6 +21,7 @@ const Advent5: FC = () => {
         })
 
         const found: string[][] = []
+        const incorrect: string[][] = []
         array2Numbers.forEach((value1) => {
             let founds = 0
             for (let i = 0; i < value1.length; i++) {
@@ -37,9 +38,15 @@ const Advent5: FC = () => {
                 })
                 if (founds === value1.length - 1) {
                     found.push(value1)
+                } else {
+                    incorrect.push(value1)
                 }
             }
         })
+
+        incorrect.forEach((value) => {
+            console.log(value)
+        });
 
         found.forEach((value) => {
             const middle = (value.length - 1) / 2
